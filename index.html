@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BachatBites — Crave More. Spend Less. | Dining Deal Comparison</title>
+  <meta name="description" content="Compare restaurant dining deals across Zomato Gold, Swiggy Dineout, EazyDiner Prime, and magicpin. Find the lowest eligible final bill with zero hidden surprises." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ==========================================================================
+       NAVIGATION BAR
+       ========================================================================== -->
+  <header class="navbar-wrapper">
+    <nav class="navbar-floating" aria-label="Main Navigation">
+      <!-- Logo -->
+      <a href="#" class="nav-brand" aria-label="BachatBites Home">
+        <div class="brand-logo-3d">
+          <i data-lucide="utensils-crossed" style="width: 22px; height: 22px;"></i>
+        </div>
+        <span class="brand-title">Bachat<span>Bites</span></span>
+      </a>
+
+      <!-- Desktop Links -->
+      <ul class="nav-menu">
+        <li><a href="#search-section" class="nav-link">Discover</a></li>
+        <li><a href="#deals-section" class="nav-link">Best Deals</a></li>
+        <li><a href="#how-it-works-section" class="nav-link">How It Works</a></li>
+        <li><a href="#savings-section" class="nav-link">Savings Calculator</a></li>
+        <li><a href="#faqs-section" class="nav-link">FAQs</a></li>
+      </ul>
+
+      <!-- Right Nav Actions -->
+      <div class="nav-actions">
+        <!-- Location Selector -->
+        <div class="location-selector-wrap">
+          <button class="btn-location-select" id="navbar-location-btn" aria-haspopup="true" aria-expanded="false">
+            <i data-lucide="map-pin" style="width: 15px; height: 15px; color: var(--color-purple);"></i>
+            <span id="current-city-name">Delhi NCR</span>
+            <i data-lucide="chevron-down" style="width: 14px; height: 14px;"></i>
+          </button>
+          <div class="location-dropdown" id="location-dropdown" role="menu">
+            <button class="city-option" data-city="All" role="menuitem">📍 All Metro Cities</button>
+            <button class="city-option" data-city="Delhi NCR" role="menuitem">Delhi NCR</button>
+            <button class="city-option" data-city="Bengaluru" role="menuitem">Bengaluru</button>
+            <button class="city-option" data-city="Mumbai" role="menuitem">Mumbai</button>
+            <button class="city-option" data-city="Pune" role="menuitem">Pune</button>
+            <button class="city-option" data-city="Hyderabad" role="menuitem">Hyderabad</button>
+          </div>
+        </div>
+
+        <!-- AI Deal Ingestion Trigger Button -->
+        <button class="btn-ai-ingest" id="btn-open-ai-modal" title="Auto-fetch deals with AI">
+          <i data-lucide="sparkles" style="width: 15px; height: 15px;"></i>
+          <span>AI Ingest</span>
+        </button>
+
+        <!-- Saved Places Bookmark Button -->
+        <button class="btn-nav-icon" id="btn-saved-nav" title="View Saved Places" aria-label="Saved Places">
+          <i data-lucide="bookmark" style="width: 18px; height: 18px;"></i>
+          <span class="badge-count" id="saved-count-badge" style="display: none;">0</span>
+        </button>
+
+        <!-- User Profile Avatar (Hidden when logged out) -->
+        <button class="btn-nav-icon" id="user-profile-btn" style="display: none;" title="User Profile">
+          <i data-lucide="user-check" style="width: 18px; height: 18px; color: var(--color-purple);"></i>
+        </button>
+
+        <!-- Sign In CTA -->
+        <button class="btn-nav-primary" id="btn-signin">Sign In</button>
+
+        <!-- Mobile Menu Hamburger -->
+        <button class="mobile-toggle" id="mobile-menu-btn" aria-label="Open Navigation Menu">
+          <i data-lucide="menu" style="width: 22px; height: 22px;"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ==========================================================================
+       HERO SECTION — ASYMMETRICAL 3D COMPOSITION
+       ========================================================================== -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-grid">
+        <!-- Left Side: Copy & Trust Signals -->
+        <div class="hero-content">
+          <div class="pill-badge">
+            <span class="pill-pulse"></span>
+            <span>YOUR DINING DEAL FINDER</span>
+          </div>
+
+          <h1 class="hero-headline">
+            Your Cravings.<br />
+            Their Prices.<br />
+            <span class="gradient-text-orange-purple">Our Best Deals.</span>
+          </h1>
+
+          <p class="hero-description">
+            Stop jumping between apps to find the best dining offers. Compare deals, uncover hidden conditions, and discover where your money goes further.
+          </p>
+
+          <div class="hero-cta-group">
+            <button class="btn-primary-hero" id="hero-cta-find">
+              <span>Find My Best Deal</span>
+              <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
+            </button>
+            <button class="btn-secondary-hero" id="hero-cta-explore">
+              <span>Explore Restaurants</span>
+              <i data-lucide="arrow-down-right" style="width: 18px; height: 18px;"></i>
+            </button>
+          </div>
+
+          <!-- Trust Indicators -->
+          <div class="hero-trust-indicators">
+            <div class="trust-item">
+              <div class="trust-icon-box">
+                <i data-lucide="layers" style="width: 16px; height: 16px;"></i>
+              </div>
+              <span>Multiple platforms compared</span>
+            </div>
+            <div class="trust-item">
+              <div class="trust-icon-box">
+                <i data-lucide="shield-check" style="width: 16px; height: 16px;"></i>
+              </div>
+              <span>Transparent offer conditions</span>
+            </div>
+            <div class="trust-item">
+              <div class="trust-icon-box">
+                <i data-lucide="wallet" style="width: 16px; height: 16px;"></i>
+              </div>
+              <span>Budget-first recommendations</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: 3D-Inspired Food Composition -->
+        <div class="hero-3d-scene" aria-hidden="true">
+          <!-- Ambient Glow -->
+          <div class="scene-ambient-glow"></div>
+
+          <!-- Floating 3D Rupee Coins -->
+          <div class="floating-coin coin-1 parallax-layer" data-speed="25">₹</div>
+          <div class="floating-coin coin-2 parallax-layer" data-speed="-20">✦</div>
+
+          <!-- Floating Orange Discount Badge -->
+          <div class="floating-badge-3d parallax-layer" data-speed="15">
+            <i data-lucide="badge-percent" style="width: 24px; height: 24px;"></i>
+            <div>
+              <div class="badge-text-big">UP TO 40% OFF</div>
+              <div class="badge-text-sub">Instant Final Bill Cut</div>
+            </div>
+          </div>
+
+          <!-- Centerpiece 3D Restaurant Card -->
+          <div class="hero-card-3d parallax-layer" data-speed="8">
+            <div class="hero-food-thumb">
+              <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" alt="Gourmet Dining Platter" />
+              <div class="hero-food-overlay">TOP RATED SPOT</div>
+            </div>
+            <div class="hero-card-body">
+              <div class="hero-card-title-row">
+                <h3 class="hero-card-title">Urban Spice Social</h3>
+                <span class="hero-card-rating">★ 4.8</span>
+              </div>
+              <p class="hero-card-meta">Cyber Hub • Modern Indian & Cocktails</p>
+
+              <!-- Mini Deal Pill inside Card -->
+              <div style="background: var(--color-lavender-subtle); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 0.6rem 0.8rem; display: flex; align-items: center; justify-content: space-between;">
+                <div>
+                  <span style="font-size: 0.7rem; color: var(--color-dark-muted); text-transform: uppercase; font-weight: 700;">Regular Bill</span>
+                  <div style="font-weight: 800; font-size: 0.95rem; text-decoration: line-through; color: #9CA3AF;">₹2,200</div>
+                </div>
+                <i data-lucide="arrow-right" style="width: 16px; height: 16px; color: var(--color-purple);"></i>
+                <div style="text-align: right;">
+                  <span style="font-size: 0.7rem; color: #15803D; text-transform: uppercase; font-weight: 800;">With BachatBites</span>
+                  <div style="font-weight: 900; font-size: 1.15rem; color: var(--color-plum);">₹1,600</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating Live Price Comparison Card -->
+          <div class="floating-comparison-widget parallax-layer" data-speed="-12">
+            <div class="widget-label">
+              <i data-lucide="activity" style="width: 14px; height: 14px;"></i>
+              <span>Live Platform Comparison</span>
+            </div>
+            <div class="widget-deals-list">
+              <div class="widget-deal-row">
+                <span>Zomato Gold</span>
+                <span><span class="strike-price">₹2,200</span> <strong>₹1,750</strong></span>
+              </div>
+              <div class="widget-deal-row winner">
+                <span>✦ Swiggy Dineout</span>
+                <span><strong>₹1,600</strong> <span class="save-chip">Best</span></span>
+              </div>
+              <div class="widget-deal-row">
+                <span>EazyDiner Prime</span>
+                <span><span class="strike-price">₹2,200</span> <strong>₹1,700</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       INTERACTIVE SEARCH EXPERIENCE
+       ========================================================================== -->
+  <section class="search-section" id="search-section">
+    <div class="container">
+      <div class="search-card-main">
+        <!-- Search Header -->
+        <div class="search-header-row">
+          <div>
+            <h2 class="search-heading">Where are we dining today?</h2>
+            <p style="font-size: 0.92rem; color: var(--color-dark-muted);">Customize your party, budget, and cravings to unlock eligible deals</p>
+          </div>
+          <!-- Quick Filter Badges -->
+          <div class="search-quick-tags">
+            <span class="quick-tag-label">Quick filter:</span>
+            <button class="filter-chip-btn active" data-filter="all">All Deals</button>
+            <button class="filter-chip-btn" data-filter="under1000">Under ₹1,000</button>
+            <button class="filter-chip-btn" data-filter="topRated">Top Rated ★ 4.7+</button>
+            <button class="filter-chip-btn" data-filter="bestValue">Best Value</button>
+            <button class="filter-chip-btn" data-filter="dateNight">Date Night</button>
+          </div>
+        </div>
+
+        <form id="main-search-form" onsubmit="return false;">
+          <!-- Inputs 4-Column Grid -->
+          <div class="search-form-grid">
+            <!-- Locality Search -->
+            <div class="search-input-group">
+              <label class="input-label" for="filter-locality">City / Locality</label>
+              <div class="input-box-wrapper">
+                <i data-lucide="map-pin" class="input-icon"></i>
+                <select id="filter-locality" class="form-control" aria-label="Select Locality">
+                  <option value="All">All Localities</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Occasion -->
+            <div class="search-input-group">
+              <label class="input-label" for="filter-occasion">Occasion</label>
+              <div class="input-box-wrapper">
+                <i data-lucide="glass-water" class="input-icon"></i>
+                <select id="filter-occasion" class="form-control" aria-label="Select Occasion">
+                  <option value="All">Any Occasion</option>
+                  <option value="Date Night">Date Night</option>
+                  <option value="Friends' Outing">Friends' Outing</option>
+                  <option value="Family Dinner">Family Dinner</option>
+                  <option value="Birthday">Birthday</option>
+                  <option value="Casual Hangout">Casual Hangout</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Cuisine -->
+            <div class="search-input-group">
+              <label class="input-label" for="filter-cuisine">Cuisine</label>
+              <div class="input-box-wrapper">
+                <i data-lucide="chef-hat" class="input-icon"></i>
+                <select id="filter-cuisine" class="form-control" aria-label="Select Cuisine">
+                  <option value="All">All Cuisines</option>
+                  <option value="North Indian">North Indian</option>
+                  <option value="Italian">Italian</option>
+                  <option value="Chinese">Chinese</option>
+                  <option value="Japanese">Japanese</option>
+                  <option value="Cafe">Cafe</option>
+                  <option value="Multi-cuisine">Multi-cuisine</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Number of People -->
+            <div class="search-input-group">
+              <label class="input-label">Number of People</label>
+              <div class="party-stepper">
+                <button type="button" class="btn-step" id="party-minus" aria-label="Decrease guests">-</button>
+                <span class="party-display-text"><span id="party-count-display">2</span> Guests</span>
+                <button type="button" class="btn-step" id="party-plus" aria-label="Increase guests">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Secondary Row: Text Search, Date, Time -->
+          <div class="search-form-grid" style="margin-bottom: 1.5rem;">
+            <div class="search-input-group" style="grid-column: span 2;">
+              <label class="input-label" for="filter-search-input">Search Restaurant or Dish</label>
+              <div class="input-box-wrapper">
+                <i data-lucide="search" class="input-icon"></i>
+                <input type="text" id="filter-search-input" class="form-control" placeholder="E.g. Truffle pasta, Biryani, Cyber Hub..." />
+              </div>
+            </div>
+
+            <div class="search-input-group">
+              <label class="input-label" for="filter-date">Date</label>
+              <div class="input-box-wrapper">
+                <i data-lucide="calendar" class="input-icon"></i>
+                <input type="date" id="filter-date" class="form-control" />
+              </div>
+            </div>
+
+            <div class="search-input-group">
+              <label class="input-label" for="filter-time">Time</label>
+              <div class="input-box-wrapper">
+                <i data-lucide="clock" class="input-icon"></i>
+                <select id="filter-time" class="form-control" aria-label="Select Time">
+                  <option value="13:00">1:00 PM (Lunch)</option>
+                  <option value="14:00">2:00 PM (Lunch)</option>
+                  <option value="19:30" selected>7:30 PM (Dinner)</option>
+                  <option value="20:30">8:30 PM (Dinner)</option>
+                  <option value="21:30">9:30 PM (Late Dinner)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Budget Slider & Presets Strip -->
+          <div class="budget-controls-row">
+            <div class="budget-slider-wrap">
+              <div class="budget-header">
+                <label class="input-label" for="filter-budget-slider">Max Budget for Two</label>
+                <span class="budget-val-badge" id="budget-val-display">₹5,000</span>
+              </div>
+              <input type="range" id="filter-budget-slider" class="range-slider" min="500" max="5000" step="250" value="5000" />
+            </div>
+
+            <!-- Budget Presets -->
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <span class="input-label">Budget Presets</span>
+              <div class="budget-presets">
+                <button type="button" class="budget-preset-btn" data-budget="500">Under ₹500</button>
+                <button type="button" class="budget-preset-btn" data-budget="1000">₹500–₹1,000</button>
+                <button type="button" class="budget-preset-btn" data-budget="2000">₹1,000–₹2,000</button>
+                <button type="button" class="budget-preset-btn active" data-budget="5000">₹2,000–₹5,000</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Action Buttons -->
+          <div class="search-action-bar">
+            <button type="button" class="btn-reset-filters" id="btn-reset-filters">
+              <i data-lucide="rotate-ccw" style="width: 16px; height: 16px;"></i>
+              <span>Clear All Filters</span>
+            </button>
+            <button type="submit" class="btn-submit-search" id="btn-submit-search">
+              <span>Find Best Deals →</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       POPULAR CATEGORIES STRIP
+       ========================================================================== -->
+  <section class="categories-section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Trending Dining Experiences</h2>
+          <p class="section-subtitle">Curated collections with verified partner offers across all platforms</p>
+        </div>
+      </div>
+      <div class="categories-scroll-grid" id="categories-container">
+        <!-- Rendered via JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FEATURED DINING DEALS GRID
+       ========================================================================== -->
+  <section class="deals-section" id="deals-section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Big Cravings. Bigger Savings.</h2>
+          <p class="section-subtitle">Compare live discount structures, minimum spend rules & final payable amounts</p>
+        </div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="deals-toolbar">
+        <div class="results-meta">
+          <span class="results-count-text" id="results-count">Showing 12 dining destinations</span>
+          <span class="demo-data-indicator">
+            <i data-lucide="info" style="width: 13px; height: 13px;"></i> Demo Deal Data
+          </span>
+        </div>
+
+        <div class="sort-select-wrapper">
+          <label class="sort-label" for="filter-sort-by">Sort By:</label>
+          <select id="filter-sort-by" class="sort-select" aria-label="Sort options">
+            <option value="recommended">Recommended</option>
+            <option value="lowest-bill">Lowest Final Bill</option>
+            <option value="highest-savings">Highest Savings</option>
+            <option value="rating">Top Rated (Stars)</option>
+            <option value="cost-asc">Cost for Two: Low to High</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Grid of Restaurant Cards -->
+      <div class="restaurants-grid" id="restaurants-grid">
+        <!-- Dynamically rendered via script.js -->
+      </div>
+
+      <!-- Empty Results State -->
+      <div class="empty-results-box" id="empty-results-state" style="display: none;">
+        <div class="empty-icon-wrap">
+          <i data-lucide="utensils" style="width: 32px; height: 32px;"></i>
+        </div>
+        <h3>No restaurants found</h3>
+        <p>We couldn't find dining deals matching your exact filters. Try broadening your budget or clearing selected tags.</p>
+        <button class="btn-primary-hero" id="btn-empty-reset" style="padding: 0.75rem 1.6rem; font-size: 0.95rem;">
+          <i data-lucide="rotate-ccw" style="width: 16px; height: 16px;"></i>
+          <span>Reset Filters</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       HOW IT WORKS (3 STEPS WITH 3D CARDS)
+       ========================================================================== -->
+  <section class="how-it-works-section" id="how-it-works-section">
+    <div class="container">
+      <div class="section-head" style="margin-bottom: 3.5rem;">
+        <div>
+          <span class="pill-badge" style="background: rgba(255, 255, 255, 0.1); color: #E9D5FF; border-color: rgba(255, 255, 255, 0.2);">
+            THE BACHATBITES PLAYBOOK
+          </span>
+          <h2 class="section-title" style="color: white; margin-top: 0.5rem;">How BachatBites Works</h2>
+          <p class="section-subtitle" style="color: #D1D5DB;">Three effortless steps between your craving and your highest savings</p>
+        </div>
+      </div>
+
+      <div class="hiw-grid">
+        <!-- Step 1 -->
+        <div class="hiw-step-card">
+          <div class="hiw-number">01</div>
+          <div class="hiw-icon-circle">
+            <i data-lucide="sliders-horizontal" style="width: 26px; height: 26px;"></i>
+          </div>
+          <h3 class="hiw-title">Tell Us What You Want</h3>
+          <p class="hiw-desc">
+            Choose your location, budget, dining preferences, and occasion. Set your party size to see accurate minimum bill thresholds.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="hiw-step-card">
+          <div class="hiw-number">02</div>
+          <div class="hiw-icon-circle">
+            <i data-lucide="git-compare" style="width: 26px; height: 26px;"></i>
+          </div>
+          <h3 class="hiw-title">Compare Every Available Deal</h3>
+          <p class="hiw-desc">
+            See applicable discounts, minimum spends, restrictions, and estimated final prices across Zomato, Swiggy Dineout, EazyDiner, and magicpin.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="hiw-step-card">
+          <div class="hiw-number">03</div>
+          <div class="hiw-icon-circle">
+            <i data-lucide="party-popper" style="width: 26px; height: 26px;"></i>
+          </div>
+          <h3 class="hiw-title">Choose Your Best Deal</h3>
+          <p class="hiw-desc">
+            Find the best-value option, copy verified promo codes, review bank-specific caveats, and proceed to the relevant booking platform.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SAVINGS DASHBOARD & SIMULATOR
+       ========================================================================== -->
+  <section class="savings-dashboard-section" id="savings-section">
+    <div class="container">
+      <div class="section-head" style="text-align: center; justify-content: center; margin-bottom: 3.5rem;">
+        <div style="max-width: 680px; margin: 0 auto;">
+          <span class="pill-badge">IMPACT & METRICS</span>
+          <h2 class="section-title" style="margin-top: 0.5rem;">Your Money Deserves Better Deals.</h2>
+          <p class="section-subtitle">Real-time savings transparency powered by our cross-platform bill engine</p>
+        </div>
+      </div>
+
+      <!-- 3 Metrics with Animated Counters -->
+      <div class="stats-grid">
+        <div class="stat-metric-card">
+          <div class="counter-val" data-target="4850000" data-prefix="₹" data-suffix="+">₹0</div>
+          <div class="stat-label">Total Estimated User Savings</div>
+          <span class="stat-footnote">*Illustrative demo metric across 1,200+ simulated bills</span>
+        </div>
+
+        <div class="stat-metric-card">
+          <div class="counter-val" data-target="14200" data-prefix="" data-suffix="+">0</div>
+          <div class="stat-label">Dining Deals Cross-Compared</div>
+          <span class="stat-footnote">*Across 4 major Indian dining platforms</span>
+        </div>
+
+        <div class="stat-metric-card">
+          <div class="counter-val" data-target="28" data-prefix="" data-suffix=".4%">0%</div>
+          <div class="stat-label">Average Estimated Bill Cut</div>
+          <span class="stat-footnote">*Highest savings on bills exceeding ₹1,500</span>
+        </div>
+      </div>
+
+      <!-- Interactive Personal Dining Simulator -->
+      <div class="simulator-card">
+        <div>
+          <h3 class="sim-headline">Calculate Your Annual Dine-out Savings</h3>
+          <p class="sim-subtitle">Slide your typical dining frequency and bill to see how much BachatBites preserves in your wallet every year.</p>
+
+          <div class="sim-sliders-col">
+            <!-- Meals per month -->
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.88rem; font-weight: 700; margin-bottom: 0.4rem;">
+                <span>Dining out frequency</span>
+                <span style="color: var(--color-purple);"><span id="calc-meals-val">4</span> times / month</span>
+              </div>
+              <input type="range" id="calc-meals-slider" class="range-slider" min="1" max="15" step="1" value="4" />
+            </div>
+
+            <!-- Average bill -->
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.88rem; font-weight: 700; margin-bottom: 0.4rem;">
+                <span>Average bill per outing</span>
+                <span style="color: var(--color-purple);" id="calc-bill-val">₹2,000</span>
+              </div>
+              <input type="range" id="calc-bill-slider" class="range-slider" min="500" max="8000" step="250" value="2000" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Calculated Result Output Card -->
+        <div class="sim-result-box">
+          <span class="result-badge">ESTIMATED ANNUAL SAVINGS</span>
+          <div class="result-huge-number" id="calc-result-yearly">₹23,040</div>
+          <p class="result-caption">Kept in your pocket through intelligent deal comparison</p>
+          <div class="result-monthly-row">
+            <span>Monthly Savings:</span>
+            <strong id="calc-result-monthly">₹1,920</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FREQUENTLY ASKED QUESTIONS
+       ========================================================================== -->
+  <section class="faqs-section" id="faqs-section">
+    <div class="container">
+      <div class="section-head" style="text-align: center; justify-content: center; margin-bottom: 3rem;">
+        <div style="max-width: 600px; margin: 0 auto;">
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-subtitle">Everything you need to know about restaurant deal rules and fine print</p>
+        </div>
+      </div>
+
+      <div class="faqs-wrapper">
+        <div class="faqs-accordion" id="faqs-accordion">
+          <!-- Rendered via JavaScript -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CROSS-PLATFORM COMPARISON MODAL (CORE FEATURE)
+       ========================================================================== -->
+  <div class="modal-overlay" id="comparison-modal" role="dialog" aria-modal="true" aria-labelledby="modal-restaurant-name">
+    <div class="modal-window">
+      <!-- Modal Header -->
+      <div class="modal-header-bar">
+        <div class="modal-restaurant-info">
+          <span class="modal-sub-badge">
+            <i data-lucide="scale" style="width: 14px; height: 14px;"></i> LIVE 4-PLATFORM COMPARISON ENGINE
+          </span>
+          <h3 class="modal-restaurant-name" id="modal-restaurant-name">Urban Spice Social</h3>
+          <p class="modal-restaurant-meta" id="modal-restaurant-meta">Cyber Hub, Gurugram • North Indian, Cocktails</p>
+          <div id="modal-restaurant-rating" style="display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.82rem; font-weight: 700; color: #D97706; margin-top: 0.2rem;">
+            ★ 4.8 (1,420 reviews)
+          </div>
+        </div>
+        <button class="btn-close-modal" aria-label="Close comparison modal">&times;</button>
+      </div>
+
+      <!-- Interactive Bill Amount Slider Strip -->
+      <div class="modal-bill-calculator-strip">
+        <div class="bill-control-group">
+          <div>
+            <span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--color-purple);">Test Bill Amount</span>
+            <div style="font-size: 0.82rem; color: var(--color-dark-muted);">Drag slider to check minimum spends & caps:</div>
+          </div>
+          <div class="bill-slider-box">
+            <input type="range" id="modal-bill-slider" class="range-slider" min="500" max="10000" step="100" value="2000" />
+          </div>
+        </div>
+
+        <div class="bill-input-box">
+          <span class="bill-currency">₹</span>
+          <input type="number" id="modal-bill-input" class="bill-input-num" min="300" max="25000" value="2000" aria-label="Enter bill amount" />
+        </div>
+      </div>
+
+      <!-- Animated Comparison Bar Chart -->
+      <div class="comparison-chart-wrapper">
+        <div class="chart-title">Net Payable Amount Comparison</div>
+        <div class="chart-bars-row" id="modal-chart-bars">
+          <!-- Rendered via JavaScript -->
+        </div>
+      </div>
+
+      <!-- 4 Platforms Cards Container -->
+      <div class="modal-platforms-grid" id="modal-platforms-container">
+        <!-- Rendered via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SAVED PLACES DRAWER
+       ========================================================================== -->
+  <aside class="side-drawer" id="saved-places-drawer" aria-label="Saved Places Drawer">
+    <div class="drawer-header">
+      <h3 class="drawer-title">
+        <i data-lucide="bookmark" style="width: 18px; height: 18px; color: var(--color-purple); vertical-align: middle;"></i>
+        Saved Places
+      </h3>
+      <button class="btn-close-modal" id="btn-close-saved-drawer" aria-label="Close drawer">&times;</button>
+    </div>
+    <div class="drawer-body" id="saved-places-list">
+      <!-- Rendered via JavaScript -->
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       USER AUTH MODAL
+       ========================================================================== -->
+  <div class="modal-overlay" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+    <div class="modal-window" style="max-width: 440px; padding: 2rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <div>
+          <h3 id="auth-modal-title" style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; color: var(--color-plum);">
+            Join BachatBites
+          </h3>
+          <p style="font-size: 0.85rem; color: var(--color-dark-muted);">Unlock personalized deal alerts & favorite places</p>
+        </div>
+        <button class="btn-close-modal" aria-label="Close auth modal">&times;</button>
+      </div>
+
+      <form id="auth-form">
+        <div style="margin-bottom: 1rem;">
+          <label class="input-label" for="auth-name">Your Full Name</label>
+          <input type="text" id="auth-name" class="form-control" placeholder="e.g. Rahul Sharma" style="padding-left: 1rem;" required />
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <label class="input-label" for="auth-phone">Mobile Number</label>
+          <input type="tel" id="auth-phone" class="form-control" placeholder="+91 98765 43210" style="padding-left: 1rem;" required />
+        </div>
+        <button type="submit" class="btn-primary-hero" style="width: 100%; justify-content: center;">
+          <span>Continue with Demo Login</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       AI DEAL INGESTION MODAL (GEMINI EXTRACTOR)
+       ========================================================================== -->
+  <div class="modal-overlay" id="ai-ingest-modal" role="dialog" aria-modal="true" aria-labelledby="ai-modal-title">
+    <div class="modal-window" style="max-width: 640px; padding: 2.2rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+        <div>
+          <span class="pill-badge" style="margin-bottom: 0.5rem;">
+            <i data-lucide="sparkles" style="width: 13px; height: 13px;"></i> GEMINI 2.5 FLASH POWERED
+          </span>
+          <h3 id="ai-modal-title" style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--color-plum);">
+            AI Deal Auto-Extractor
+          </h3>
+          <p style="font-size: 0.88rem; color: var(--color-dark-muted);">
+            Paste raw unformatted restaurant text or promo fine-print. AI will extract Zomato, Swiggy, EazyDiner, and magicpin rules into structured deals.
+          </p>
+        </div>
+        <button class="btn-close-modal" aria-label="Close AI modal">&times;</button>
+      </div>
+
+      <!-- Quick Sample Buttons -->
+      <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; flex-wrap: wrap;">
+        <span style="font-size: 0.75rem; font-weight: 800; color: var(--color-dark-muted); text-transform: uppercase;">Load Demo Offer:</span>
+        <button type="button" class="btn-sample-offer" id="btn-sample-punjab">Punjab Grill (Cyber Hub)</button>
+        <button type="button" class="btn-sample-offer" id="btn-sample-bastian">Bastian (Mumbai)</button>
+      </div>
+
+      <form id="ai-ingest-form">
+        <div style="margin-bottom: 1.25rem;">
+          <label class="input-label" for="ai-raw-text">Paste Raw Offer Text or Promo Copy</label>
+          <textarea id="ai-raw-text" class="form-control" rows="5" placeholder="E.g. Punjab Grill in Cyber Hub Gurugram. North Indian & Mughlai. Cost for two ₹2,400. Zomato Gold giving 25% off up to ₹500 on min bill ₹1800. Dineout offering flat 30% off with HDFC cards. EazyDiner flat ₹600 off voucher on ₹2200." style="padding: 0.8rem; font-size: 0.88rem; resize: vertical;" required></textarea>
+        </div>
+
+        <div id="ai-processing-status" style="display: none; margin-bottom: 1rem; padding: 0.85rem; background: var(--color-lavender-subtle); border-radius: var(--radius-md); border: 1px dashed var(--color-purple);">
+          <div style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; font-weight: 700; color: var(--color-purple);">
+            <div class="pill-pulse" style="background: var(--color-purple);"></div>
+            <span id="ai-status-text">Gemini AI is analyzing discount caps & minimum spends...</span>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 0.8rem; justify-content: flex-end;">
+          <button type="button" class="btn-secondary-hero" id="btn-cancel-ai" style="padding: 0.7rem 1.4rem; font-size: 0.9rem;">Cancel</button>
+          <button type="submit" class="btn-primary-hero" id="btn-submit-ai" style="padding: 0.7rem 1.6rem; font-size: 0.9rem;">
+            <i data-lucide="sparkles" style="width: 16px; height: 16px;"></i>
+            <span>Extract & Add to BachatBites</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Drawer -->
+  <aside class="side-drawer" id="mobile-nav-drawer" aria-label="Mobile Navigation">
+    <div class="drawer-header">
+      <div class="brand-title">Bachat<span>Bites</span></div>
+      <button class="btn-close-modal" id="mobile-nav-close" aria-label="Close mobile menu">&times;</button>
+    </div>
+    <div class="drawer-body" style="display: flex; flex-direction: column; gap: 1.25rem; padding: 1.5rem;">
+      <a href="#search-section" class="nav-link" style="font-size: 1.1rem;">Discover</a>
+      <a href="#deals-section" class="nav-link" style="font-size: 1.1rem;">Best Deals</a>
+      <a href="#how-it-works-section" class="nav-link" style="font-size: 1.1rem;">How It Works</a>
+      <a href="#savings-section" class="nav-link" style="font-size: 1.1rem;">Savings Calculator</a>
+      <a href="#faqs-section" class="nav-link" style="font-size: 1.1rem;">FAQs</a>
+      <button class="btn-nav-primary" id="btn-saved-mobile" style="margin-top: 1rem; width: 100%;">
+        View Saved Places
+      </button>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       TOAST NOTIFICATION CONTAINER
+       ========================================================================== -->
+  <div id="toast-container" aria-live="polite"></div>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand Col -->
+        <div class="footer-brand-col">
+          <div class="nav-brand">
+            <div class="brand-logo-3d">
+              <i data-lucide="utensils-crossed" style="width: 22px; height: 22px;"></i>
+            </div>
+            <span class="brand-title" style="color: white;">Bachat<span style="color: var(--color-orange);">Bites</span></span>
+          </div>
+          <p>
+            The dining deal discovery platform engineered to ensure food lovers never overpay at top restaurants. Compare Zomato, Swiggy Dineout, EazyDiner & magicpin in one click.
+          </p>
+        </div>
+
+        <!-- Links 1 -->
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-links-list">
+            <li><a href="#search-section">Discover Restaurants</a></li>
+            <li><a href="#deals-section">Best Deals Grid</a></li>
+            <li><a href="#how-it-works-section">Deal Engine Logic</a></li>
+            <li><a href="#savings-section">Savings Simulator</a></li>
+            <li><a href="#faqs-section">Dining Deal Rules</a></li>
+          </ul>
+        </div>
+
+        <!-- Links 2 -->
+        <div>
+          <h4 class="footer-col-title">Top Dining Hubs</h4>
+          <ul class="footer-links-list">
+            <li><a href="#">Delhi NCR Cyber Hub</a></li>
+            <li><a href="#">Bengaluru Indiranagar</a></li>
+            <li><a href="#">Mumbai Bandra West</a></li>
+            <li><a href="#">Pune Koregaon Park</a></li>
+            <li><a href="#">Hyderabad Jubilee Hills</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter & Legal -->
+        <div>
+          <h4 class="footer-col-title">Weekly Deal Alerts</h4>
+          <p class="footer-newsletter-text">
+            Get the secret 40% discount alerts and newly added dining partners delivered to your inbox every Friday.
+          </p>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed to BachatBites deal drop!');">
+            <input type="email" class="newsletter-input" placeholder="Your email address" required />
+            <button type="submit" class="btn-newsletter">Subscribe</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Bottom Disclaimer Bar -->
+      <div class="footer-bottom-bar">
+        <div>
+          © 2026 BachatBites Inc. All rights reserved. "Crave More. Spend Less."
+        </div>
+        <div style="display: flex; gap: 1.5rem;">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Partner API Integrations</a>
+          <a href="#">Contact Us</a>
+        </div>
+      </div>
+      <div style="font-size: 0.72rem; color: #6B6275; margin-top: 1rem; text-align: center;">
+        Disclaimer: BachatBites is an independent deal comparison platform. Brand logos and trademarks (Zomato, Swiggy, EazyDiner, magicpin) belong to their respective owners. Sample restaurant offers shown in this version are demo representations for testing comparison accuracy.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
